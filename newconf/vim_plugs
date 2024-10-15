@@ -1,0 +1,126 @@
+call plug#begin('~/.vim/plugged')
+
+" CSS, React, and Tailwind Plugins
+Plug 'mattn/emmet-vim'
+Plug 'hail2u/vim-css3-syntax'
+Plug 'styled-components/vim-styled-components', { 'branch': 'main' }
+Plug 'arcticicestudio/nord-vim'
+Plug 'airblade/vim-tailwind'
+Plug 'mlaursen/vim-react-snippets'
+
+" Themes
+Plug 'mhartington/oceanic-next'
+
+" Essential Plugins
+Plug 'tpope/vim-surround'
+Plug 'junegunn/fzf.vim'
+Plug 'airblade/vim-gitgutter'
+Plug 'preservim/nerdtree'
+
+" Snippet Support
+Plug 'SirVer/ultisnips'
+Plug 'honza/vim-snippets'
+
+" JavaScript, React, TypeScript
+Plug 'pangloss/vim-javascript'
+Plug 'mxw/vim-jsx'
+Plug 'MaxMEllon/vim-jsx-pretty'
+
+" Python and Django
+Plug 'davidhalter/jedi-vim'
+Plug 'psf/black'
+
+" Intellisense engine (Coc.nvim)
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
+
+" Color Themes and Aesthetic
+Plug 'morhetz/gruvbox'
+Plug 'arcticicestudio/nord-vim'
+
+" Additional Plugins
+Plug 'tpope/vim-commentary'
+Plug 'tpope/vim-fugitive'
+Plug 'Xuyuanp/nerdtree-git-plugin'
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+Plug 'jiangmiao/auto-pairs'
+Plug 'alvan/vim-closetag'
+Plug 'hrsh7th/nvim-cmp'
+Plug 'chriskempson/vim-tomorrow-theme'
+
+call plug#end()
+
+" General settings
+set number
+set relativenumber
+set tabstop=2
+set shiftwidth=2
+set expandtab
+set background=dark
+set termguicolors
+colorscheme gruvbox 
+
+" Coc.nvim settings and autocompletion
+let g:coc_global_extensions = [
+    \ 'coc-python',
+    \ 'coc-html',
+    \ 'coc-css',
+    \ 'coc-json',
+    \ 'coc-eslint',
+    \ 'coc-prettier',
+    \ 'coc-tsserver',
+    \ 'coc-tailwindcss',
+    \ ]
+
+inoremap <expr> <CR> coc#pum#visible() ? coc#pum#confirm() : "\<CR>"
+
+" Auto-pairs and auto-closing tags configuration
+let g:AutoPairsFlyMode = 0
+let g:closetag_filenames = '*.html,*.xhtml,*.phtml,*.js,*.jsx'
+
+" Fuzzy finder configuration
+let g:fzf_action = {
+    \ 'enter': 'tabedit',
+    \ 'ctrl-s': 'split',
+    \ 'ctrl-v': 'vsplit'
+    \ }
+
+" Filetype-specific settings
+autocmd BufNewFile,BufRead *.jsx,*.tsx set filetype=javascriptreact
+autocmd BufNewFile,BufRead *.html set filetype=htmldjango
+autocmd BufWritePre *.js,*.jsx,*.ts,*.tsx,*.json,*.css,*.scss :CocCommand prettier.formatFile
+
+" Format files automatically on save
+autocmd BufWritePre *.py,*.js,*.jsx,*.ts,*.tsx,*.css,*.scss,*.html :CocCommand editor.action.formatDocument
+
+" Use Coc.nvim for Go-to-definition and related LSP features
+nmap <silent> gd <Plug>(coc-definition)
+nmap <silent> gy <Plug>(coc-type-definition)
+nmap <silent> gi <Plug>(coc-implementation)
+nmap <silent> gr <Plug>(coc-references)
+
+" NERDTree keybindings
+nnoremap <C-n> :NERDTreeToggle<CR>
+
+" FZF keybinding for file navigation
+nnoremap <C-p> :Files<CR>
+
+" Airline status bar configuration
+let g:airline_theme='oceanicnext'
+let g:airline_powerline_fonts = 1
+
+" Map Tab to go to the next tab
+nnoremap <Tab> :tabnext<CR>
+nnoremap <S-Tab> :tabprevious<CR>
+
+" Clipboard integration (for tmux)
+set clipboard=unnamedplus
+
+" Reduce Redraw Time
+set ttyfast
+set lazyredraw
+
+" Disable swap files for faster loading
+set noswapfile
+
+
+
